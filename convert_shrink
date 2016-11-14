@@ -1,0 +1,22 @@
+#!/usr/bin/python
+#
+
+from sys import argv
+from subprocess import call
+
+def shrink_file(shrink_factor, filename):
+	"Shrink the file by the specified factor"
+	resize = str(shrink_factor) + '%'
+	args = ["convert", "-resize", resize, filename, "small_" + filename]
+	print "converting %s" % filename
+	call(args)
+
+if __name__ == "__main__":
+	nargs = len(argv)
+	if nargs < 2:
+		print("Usage: %s factor filenames" % argv[0])
+		exit(1)
+
+	shrink_factor = int(argv[1])
+	for filename in argv[2:]:
+		shrink_file(shrink_factor, filename)
